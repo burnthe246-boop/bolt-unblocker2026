@@ -6,6 +6,8 @@ import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import sirv from "sirv";
 
+import cloudflare from "@astrojs/cloudflare";
+
 function customDevServer() {
     return {
         name: 'custom-dev-server',
@@ -47,13 +49,18 @@ export default defineConfig({
     outDir: "./dist",
     publicDir: "./public",
     srcDir: "./src",
+
     vite: {
         plugins: [tailwindcss()]
     },
+
     build: {
         concurrency: 1
     },
+
     integrations: [
         customDevServer()
-    ]
+    ],
+
+    adapter: cloudflare()
 });
